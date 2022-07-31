@@ -1,12 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <main class="delete-item layout">
+    <main class="update-account layout">
         <div class="container">
             <div class="layout__box">
                 <div class="layout__boxHeader">
                     <div class="layout__boxTitle">
-                        <a href="{{request.META.HTTP_REFERER}}">
+                        <a href="{% url 'home' %}">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                 viewBox="0 0 32 32">
                                 <title>arrow-left</title>
@@ -15,24 +15,26 @@
                                 </path>
                             </svg>
                         </a>
-                        <h3>Back</h3>
+                        <h3>Edit your profile</h3>
                     </div>
                 </div>
                 <div class="layout__body">
                     <form class="form" action="" method="POST">
-                        {% csrf_token %}
+                      {% csrf_token %}
+                      {% for field in form %}
                         <div class="form__group">
-                            <p>Are you sure you want to delete "{{obj}}"?</p>
+                            <label for="profile_pic">{{field.label}}</label>
+                            {{field}}
                         </div>
-
-                        <div class="for__group">
-                            <input class="btn btn--main" type="submit" value="Confirm" />
+                      {% endfor %}
+                        <div class="form__action">
+                            <a class="btn btn--dark" href="index.html">Cancel</a>
+                            <button class="btn btn--main" type="submit">Update</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
+      </div>
     </main>
-    <script src="script.js"></script>
-{% endblock content %}
+    {% endblock content %}
